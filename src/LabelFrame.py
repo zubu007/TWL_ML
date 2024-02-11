@@ -3,27 +3,29 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 
-class ImageViewer:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Image Viewer")
-        self.root.geometry("800x600")
+class LablePage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.parent = parent
 
         self.image_folder = None
         self.image_list = []
         self.current_image_index = 0
 
-        self.canvas = tk.Canvas(self.root, width=600, height=400)
+        self.canvas = tk.Canvas(self, width=600, height=400)
         self.canvas.pack()
 
-        self.btn_load = tk.Button(self.root, text="Load Images", command=self.load_images)
+        self.btn_load = tk.Button(self, text="Load Images", command=self.load_images)
         self.btn_load.pack()
 
-        self.btn_prev = tk.Button(self.root, text="Previous", command=self.show_previous_image)
+        self.btn_prev = tk.Button(self, text="Previous", command=self.show_previous_image)
         self.btn_prev.pack()
 
-        self.btn_next = tk.Button(self.root, text="Next", command=self.show_next_image)
+        self.btn_next = tk.Button(self, text="Next", command=self.show_next_image)
         self.btn_next.pack()
+
+        self.btn_back = tk.Button(self, text="Settings", command=lambda: controller.show_frame("Setting"))
+        self.btn_back.pack()
 
     def load_images(self):
         self.image_folder = filedialog.askdirectory()
@@ -49,7 +51,3 @@ class ImageViewer:
             self.current_image_index = (self.current_image_index + 1) % len(self.image_list)
             self.show_current_image()
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ImageViewer(root)
-    root.mainloop()

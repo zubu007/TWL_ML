@@ -1,2 +1,3 @@
 # Ignore MNIST-JPG folder
 MNIST-JPG/
+__pycache__/
