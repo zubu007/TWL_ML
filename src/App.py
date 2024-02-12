@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from utils.config import START_PAGE_TEXT
+# from utils.config import START_PAGE_TEXT
 from LabelFrame import LablePage
 from SettingsFrame import SettingsPage
 from StartFrame import StartPage

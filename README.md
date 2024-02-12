@@ -9,6 +9,8 @@ The app will have 3 frames.
 1. Starting frame: which will have welcome information for the user and the button to guide to the next frame.
 2. Setting frames: Here there will be various setting for the user to select. liek model architecture, dataset file lcoation, lose function, optimizer etc.
 3. Labeling frame: Here there the images will be loaded and there will be buttons to label the images. On the side of this frame, there will be information about the image like image name, shape, etc. Another side of this frame, will be a figure of the neural network and its weights.
+Use matplotlib to show the neural network and other machine learning algorithms in action.
+Use Neuralplot to show 3d plot of the neural network.
 - [ ] Create a GUI to load and show the images
 - [ ] Display image information in the side. Like image name, shape, etc.
 - [ ] 

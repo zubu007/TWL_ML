@@ -8,6 +8,8 @@ class LablePage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.parent = parent
 
+        self.shared_data = controller.shared_data
+
         self.image_folder = None
         self.image_list = []
         self.current_image_index = 0
