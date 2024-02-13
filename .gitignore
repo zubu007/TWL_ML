@@ -1,3 +1,4 @@
 # Ignore MNIST-JPG folder
 MNIST-JPG/
 __pycache__/
+image_labels.csv

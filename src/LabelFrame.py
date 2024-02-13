@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
+import csv
 
 class LablePage(tk.Frame):
     def __init__(self, parent, controller):
@@ -17,6 +18,12 @@ class LablePage(tk.Frame):
         self.canvas = tk.Canvas(self, width=600, height=400)
         self.canvas.pack()
 
+        self.label_buttons = []
+        for output_node in range(self.shared_data['output nodes']):
+            button = tk.Button(self, text=output_node, command=lambda node=output_node: self.label_image(node))
+            button.pack()
+            self.label_buttons.append(button)
+
         self.btn_load = tk.Button(self, text="Load Images", command=self.load_images)
         self.btn_load.pack()
 
@@ -30,10 +37,12 @@ class LablePage(tk.Frame):
         self.btn_back.pack()
 
     def load_images(self):
+        self.image_list.clear()
         self.image_folder = filedialog.askdirectory()
-        if self.image_folder:
-            self.image_list = [os.path.join(self.image_folder, filename) for filename in os.listdir(self.image_folder)]
-            self.show_current_image()
+        for filename in os.listdir(self.image_folder):
+            if filename.endswith(".jpg") or filename.endswith(".png"):
+                self.image_list.append(os.path.join(self.image_folder, filename))
+        self.show_current_image()
 
     def show_current_image(self):
         if self.image_list:
@@ -52,4 +61,11 @@ class LablePage(tk.Frame):
         if self.image_list:
             self.current_image_index = (self.current_image_index + 1) % len(self.image_list)
             self.show_current_image()
+
+    def label_image(self, node):
+        if self.image_list:
+            with open('image_labels.csv', 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([self.image_list[self.current_image_index], node])
+            self.show_next_image()
 
