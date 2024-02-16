@@ -19,7 +19,8 @@ class LablePage(tk.Frame):
         self.canvas.pack()
 
         self.label_buttons = []
-        for output_node in range(self.shared_data['output nodes']):
+        print(self.shared_data['output nodes'])
+        for output_node in range(int(self.shared_data['output nodes'])):
             button = tk.Button(self, text=output_node, command=lambda node=output_node: self.label_image(node))
             button.pack()
             self.label_buttons.append(button)

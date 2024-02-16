@@ -13,6 +13,8 @@ class tkinterApp(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
+        self.container = container
+
         self.shared_data = {
             "input shape": "224x224",
             "batch size": 32,
@@ -20,7 +22,7 @@ class tkinterApp(tk.Tk):
         }
 
         self.frames = {}
-        for F, s in ((StartPage, "Start"), (SettingsPage, "Setting"), (LablePage, "Label")):
+        for F, s in ((StartPage, "Start"), (SettingsPage, "Setting")):
             frame = F(container, self)   # make objects of the classes
             self.frames[s] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -31,6 +33,11 @@ class tkinterApp(tk.Tk):
         print(self.shared_data)
         frame = self.frames[cont_str]
         frame.tkraise()
+
+    def show_label_frame(self):
+        label_frame = LablePage(self.container, self)
+        label_frame.grid(row=0, column=0, sticky="nsew")
+        label_frame.tkraise()
 
 if __name__ == "__main__":
     app = tkinterApp()
