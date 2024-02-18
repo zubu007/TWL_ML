@@ -1,14 +1,21 @@
 import tkinter as tk
 from tkinter import ttk
+import json
 
 class SettingsPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.config = {
-            "input shape": "tor maire",
-            "batch size": 32,
-            "output nodes": 2
-        }
+        # self.config = {
+        #     "input nodes": "0",
+        #     "batch size": 32,
+        #     "output nodes": 2
+        # }
+
+        with open('models\ANN.json', 'r') as f:
+            self.config = json.load(f)
+
+
+
         label = ttk.Label(self, text="Settings", font=("Verdana", 35))
         label.grid(row=0, column=4, padx=10, pady=10)
 
@@ -17,15 +24,41 @@ class SettingsPage(tk.Frame):
         self.outputNodesCombo = ttk.Combobox(self, values=[1, 2, 3, 4, 5])
         self.outputNodesCombo.current(0)
         self.outputNodesCombo.grid(row=1, column=5, padx=10, pady=10)
-        
+
+        inputNodesLabel = ttk.Label(self, text="Input Nodes:")
+        inputNodesLabel.grid(row=1, column=2, padx=10, pady=10)
+        self.inputNodesCombo = ttk.Combobox(self, values=[0, 1, 2, 3, 4, 5])
+        self.inputNodesCombo.current(0)
+        self.inputNodesCombo.grid(row=1, column=3, padx=10, pady=10)
+
+        heightLabel = ttk.Label(self, text="Height:")
+        heightLabel.grid(row=2, column=2, padx=10, pady=10)
+        self.heightEntry = ttk.Entry(self)
+        self.heightEntry.insert(0, "224")
+        self.heightEntry.grid(row=2, column=3, padx=10, pady=10)
+
+        widthLabel = ttk.Label(self, text="Width:")
+        widthLabel.grid(row=3, column=2, padx=10, pady=10)
+        self.widthEntry = ttk.Entry(self)
+        self.widthEntry.insert(0, "224")
+        self.widthEntry.grid(row=3, column=3, padx=10, pady=10)
+
+        channelLabel = ttk.Label(self, text="Channel:")
+        channelLabel.grid(row=4, column=2, padx=10, pady=10)
+        self.channelEntry = ttk.Entry(self)
+        self.channelEntry.insert(0, "1")
+        self.channelEntry.grid(row=4, column=3, padx=10, pady=10)
 
 
         labelButton = ttk.Button(self, text="Label", command=lambda: self.label_page(controller))
         labelButton.grid(row=1, column=1, padx=10, pady=10)
+
         homeButton = ttk.Button(self, text="Back to Home", command=lambda: controller.show_frame("Start"))
         homeButton.grid(row=2, column=1, padx=10, pady=10)
 
     def label_page(self, controller):
-        self.config['output nodes'] = self.outputNodesCombo.get()
-        controller.shared_data['output nodes'] = self.config['output nodes']
+        self.config['output_layer']["units"] = int(self.outputNodesCombo.get())
+        with open('models\ANN.json', 'w') as f:
+            json.dump(self.config, f, indent=4)
+        # controller.shared_data['output nodes'] = self.config['output nodes']
         controller.show_label_frame()

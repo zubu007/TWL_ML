@@ -4,6 +4,7 @@ from tkinter import ttk
 from LabelFrame import LablePage
 from SettingsFrame import SettingsPage
 from StartFrame import StartPage
+import json
 
 class tkinterApp(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -16,11 +17,9 @@ class tkinterApp(tk.Tk):
         self.container = container
 
         # This is a dictionary to see the shared data between the frames (not needed for the main file)
-        self.shared_data = {
-            "input shape": "224x224",
-            "batch size": 32,
-            "output nodes": 2
-        }
+        self.shared_data = {}
+        
+
 
         self.frames = {}
         for F, s in ((StartPage, "Start"), (SettingsPage, "Setting")):
@@ -31,11 +30,14 @@ class tkinterApp(tk.Tk):
         self.show_frame("Start")
 
     def show_frame(self, cont_str):
+        # method to raise the frame
         print(self.shared_data)
         frame = self.frames[cont_str]
         frame.tkraise()
 
     def show_label_frame(self):
+        with open('models\ANN.json', 'r') as f:
+            self.shared_data = json.load(f)
         label_frame = LablePage(self.container, self)
         label_frame.grid(row=0, column=0, sticky="nsew")
         label_frame.tkraise()

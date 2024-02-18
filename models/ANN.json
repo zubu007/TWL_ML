@@ -1,0 +1,15 @@
+{
+    "input_layer": {
+        "units": 0
+    },
+    "hidden_layers": [
+        {
+            "units": 0,
+            "activation": ""
+        }
+    ],
+    "output_layer": {
+        "units": 3,
+        "activation": ""
+    }
+}

@@ -12,14 +12,16 @@ The app will have 3 frames.
 Use matplotlib to show the neural network and other machine learning algorithms in action.
 Use Neuralplot to show 3d plot of the neural network.
 - [x] Create a GUI to load and show the images
-- [ ] Display image information in the side. Like image name, shape, etc.
+- [x] Display image information in the side. Like image name, shape, etc.
 - [ ] Create a design for the UI
 - [ ] Add comments to the code
 - [ ] Create a GUI to select the model architecture
 - [ ] Create a GUI to select the loss function
 - [ ] Create a GUI to select the optimizer
 - [ ] Create an entry file on the main directory
-
+- [ ] Warn the user to select appropriate input shape (length, width, channel) for the model
+- [x] Create a GUI to select the dataset file location
+- [ ] Use keyboard arrow keys to navigate through the images
 ### Installation
 
 ### Contributions

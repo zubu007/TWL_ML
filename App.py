@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-# from utils.config import START_PAGE_TEXT
-from LabelFrame import LablePage
-from SettingsFrame import SettingsPage
-from StartFrame import StartPage
+from utils.config import START_PAGE_TEXT
+from src.LabelFrame import LablePage
+from src.SettingsFrame import SettingsPage
+from src.StartFrame import StartPage
 
 class tkinterApp(tk.Tk):
     def __init__(self, *args, **kwargs):
