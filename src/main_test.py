@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-# from ..utils.config import START_PAGE_TEXT
+# from ..utils.config import START_PAGE_TEXT   <--- Fix this import
 from LabelFrame import LablePage
 from SettingsFrame import SettingsPage
 from StartFrame import StartPage
@@ -15,6 +15,7 @@ class tkinterApp(tk.Tk):
 
         self.container = container
 
+        # This is a dictionary to see the shared data between the frames (not needed for the main file)
         self.shared_data = {
             "input shape": "224x224",
             "batch size": 32,
