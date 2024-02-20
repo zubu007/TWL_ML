@@ -22,6 +22,9 @@ Use Neuralplot to show 3d plot of the neural network.
 - [ ] Warn the user to select appropriate input shape (length, width, channel) for the model
 - [x] Create a GUI to select the dataset file location
 - [ ] Use keyboard arrow keys to navigate through the images
+- [ ] Add image resizing option
+- [ ] Add image augmentation option
+- [ ] Add Black and white image option
 ### Installation
 
 ### Contributions

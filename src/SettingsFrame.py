@@ -25,11 +25,11 @@ class SettingsPage(tk.Frame):
         self.outputNodesCombo.current(0)
         self.outputNodesCombo.grid(row=1, column=5, padx=10, pady=10)
 
-        inputNodesLabel = ttk.Label(self, text="Input Nodes:")
-        inputNodesLabel.grid(row=1, column=2, padx=10, pady=10)
-        self.inputNodesCombo = ttk.Combobox(self, values=[0, 1, 2, 3, 4, 5])
-        self.inputNodesCombo.current(0)
-        self.inputNodesCombo.grid(row=1, column=3, padx=10, pady=10)
+        hiddenNodesLabel = ttk.Label(self, text="Hidden Nodes:")
+        hiddenNodesLabel.grid(row=1, column=2, padx=10, pady=10)
+        self.hiddenNodesLabel = ttk.Entry(self)
+        self.hiddenNodesLabel.insert(0, "100")
+        self.hiddenNodesLabel.grid(row=1, column=3, padx=10, pady=10)
 
         heightLabel = ttk.Label(self, text="Height:")
         heightLabel.grid(row=2, column=2, padx=10, pady=10)
@@ -58,6 +58,8 @@ class SettingsPage(tk.Frame):
 
     def label_page(self, controller):
         self.config['output_layer']["units"] = int(self.outputNodesCombo.get())
+        self.config['input_layer']["units"] = int(self.heightEntry.get()) * int(self.widthEntry.get()) * int(self.channelEntry.get())
+        self.config['hidden_layers'][0]["units"] = int(self.hiddenNodesLabel.get())
         with open('models\ANN.json', 'w') as f:
             json.dump(self.config, f, indent=4)
         # controller.shared_data['output nodes'] = self.config['output nodes']

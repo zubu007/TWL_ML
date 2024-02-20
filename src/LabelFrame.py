@@ -31,9 +31,13 @@ class LablePage(tk.Frame):
             button.pack()
             self.label_buttons.append(button)
 
+            # bind the number keys to the label buttons
+            self.bind(str(output_node + 1), lambda event, node=output_node: self.label_image(node))
+            
+
         self.btn_load = tk.Button(self, text="Load Images", command=self.load_images)
         self.btn_load.pack()
-
+  
         self.btn_prev = tk.Button(self, text="Previous", command=self.show_previous_image)
         self.btn_prev.pack()
 
@@ -42,6 +46,11 @@ class LablePage(tk.Frame):
 
         self.btn_back = tk.Button(self, text="Settings", command=lambda: controller.show_frame("Setting"))
         self.btn_back.pack()
+
+        # bind the left and right arrow keys
+        self.bind("<Left>", self.show_previous_image)
+        self.bind("<Right>", self.show_next_image)
+        self.focus_set()
 
     def load_images(self):
         self.image_list.clear()
@@ -61,17 +70,17 @@ class LablePage(tk.Frame):
             self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
             self.show_image_info()
 
-    def show_previous_image(self):
+    def show_previous_image(self, event=None):
         if self.image_list:
             self.current_image_index = (self.current_image_index - 1) % len(self.image_list)
             self.show_current_image()
 
-    def show_next_image(self):
+    def show_next_image(self, event=None):
         if self.image_list:
             self.current_image_index = (self.current_image_index + 1) % len(self.image_list)
             self.show_current_image()
 
-    def label_image(self, node):
+    def label_image(self, node, event=None):
         if self.image_list:
             with open('image_labels.csv', 'a', newline='') as file:
                 writer = csv.writer(file)
