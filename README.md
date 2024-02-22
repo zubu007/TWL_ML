@@ -18,10 +18,10 @@ Use Neuralplot to show 3d plot of the neural network.
 - [ ] Create a GUI to select the model architecture
 - [ ] Create a GUI to select the loss function
 - [ ] Create a GUI to select the optimizer
-- [ ] Create an entry file on the main directory
+- [x] Create an entry file on the main directory
 - [ ] Warn the user to select appropriate input shape (length, width, channel) for the model
 - [x] Create a GUI to select the dataset file location
-- [ ] Use keyboard arrow keys to navigate through the images
+- [x] Use keyboard arrow keys to navigate through the images
 - [ ] Add image resizing option
 - [ ] Add image augmentation option
 - [ ] Add Black and white image option
