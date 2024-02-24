@@ -3,6 +3,9 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import csv
+from torchvision import transforms
+import torch
+import torch.nn as nn
 
 class LablePage(tk.Frame):
     def __init__(self, parent, controller):
@@ -10,6 +13,15 @@ class LablePage(tk.Frame):
         self.parent = parent
 
         self.shared_data = controller.shared_data
+
+        self.model = controller.model
+        # self.model.eval()
+        # define loss function and optimizer
+        self.criterion = nn.CrossEntropyLoss()
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
+        # get the shape of the last layer
+        self.output_layer_shape = self.model.layers[-2].out_features
+        # print(self.output_layer_shape)
 
         self.image_folder = None
         self.image_list = []
@@ -60,7 +72,6 @@ class LablePage(tk.Frame):
                 self.image_list.append(os.path.join(self.image_folder, filename))
         self.show_current_image()
         
-
     def show_current_image(self):
         if self.image_list:
             image_path = self.image_list[self.current_image_index]
@@ -85,6 +96,27 @@ class LablePage(tk.Frame):
             with open('image_labels.csv', 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([self.image_list[self.current_image_index], node])
+
+            x = Image.open(self.image_list[self.current_image_index])
+            # x = x.resize((224, 224), Image.LANCZOS)    <--- This is for the resizing feature
+            x = transforms.ToTensor()(x)
+            # x = x.unsqueeze(0)   <--- This is for the batching feature
+            x = x.view(1, 28 * 28)
+            y = torch.zeros(1, self.output_layer_shape)
+            y[0][node] = 1
+
+            self.optimizer.zero_grad()
+
+            outputs = self.model.forward(x)
+            loss = self.criterion(outputs, y)
+            print(loss.item())
+            loss.backward()
+
+            self.optimizer.step()
+
+            print(outputs)
+            print(y)
+            
             self.show_next_image()
 
     def show_image_info(self):

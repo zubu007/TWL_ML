@@ -11,6 +11,16 @@ The app will have 3 frames.
 3. Labeling frame: Here there the images will be loaded and there will be buttons to label the images. On the side of this frame, there will be information about the image like image name, shape, etc. Another side of this frame, will be a figure of the neural network and its weights.
 Use matplotlib to show the neural network and other machine learning algorithms in action.
 Use Neuralplot to show 3d plot of the neural network.
+
+##### main todo
+- [x] create model architecture from the model config
+- [x] create pytorch training funtion for 1 batch.
+- [ ] Option to select batch size.
+- [x] training funtion invoked when labeled.
+- [x] Activation function choose.
+- [ ] Show the loss and other model info in the GUI
+
+##### small features
 - [x] Create a GUI to load and show the images
 - [x] Display image information in the side. Like image name, shape, etc.
 - [ ] Create a design for the UI
@@ -25,6 +35,7 @@ Use Neuralplot to show 3d plot of the neural network.
 - [ ] Add image resizing option
 - [ ] Add image augmentation option
 - [ ] Add Black and white image option
+
 ### Installation
 
 ### Contributions

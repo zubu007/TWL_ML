@@ -11,7 +11,7 @@ class SettingsPage(tk.Frame):
         #     "output nodes": 2
         # }
 
-        with open('models\ANN.json', 'r') as f:
+        with open('src\models\ANN.json', 'r') as f:
             self.config = json.load(f)
 
 
@@ -49,6 +49,17 @@ class SettingsPage(tk.Frame):
         self.channelEntry.insert(0, "1")
         self.channelEntry.grid(row=4, column=3, padx=10, pady=10)
 
+        # saveButton = ttk.Button(self, text="Save", command=lambda: self.save_settings())
+
+        # option to choose activation function for hidden layer
+        activationLabel = ttk.Label(self, text="Activation Function:")
+        activationLabel.grid(row=2, column=4, padx=10, pady=10)
+        self.activationCombo = ttk.Combobox(self, values=["relu", "sigmoid", "tanh"])
+        self.activationCombo.current(0)
+        self.activationCombo.grid(row=2, column=5, padx=10, pady=10)
+
+        # option to choose loss function
+
 
         labelButton = ttk.Button(self, text="Label", command=lambda: self.label_page(controller))
         labelButton.grid(row=1, column=1, padx=10, pady=10)
@@ -60,7 +71,8 @@ class SettingsPage(tk.Frame):
         self.config['output_layer']["units"] = int(self.outputNodesCombo.get())
         self.config['input_layer']["units"] = int(self.heightEntry.get()) * int(self.widthEntry.get()) * int(self.channelEntry.get())
         self.config['hidden_layers'][0]["units"] = int(self.hiddenNodesLabel.get())
-        with open('models\ANN.json', 'w') as f:
+        self.config['hidden_layers'][0]["activation"] = self.activationCombo.get()
+        with open('src\models\ANN.json', 'w') as f:
             json.dump(self.config, f, indent=4)
         # controller.shared_data['output nodes'] = self.config['output nodes']
         controller.show_label_frame()

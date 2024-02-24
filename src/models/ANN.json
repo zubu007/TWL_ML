@@ -5,7 +5,7 @@
     "hidden_layers": [
         {
             "units": 100,
-            "activation": ""
+            "activation": "relu"
         }
     ],
     "output_layer": {
